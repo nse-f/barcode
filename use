@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Night Star Express – Standort</title>
+  <style>
+    body {
+      font-family: 'Source Sans Pro', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+      color: #003366;
+    }
+
+    header {
+      background-color: #003366;
+      text-align: center;
+      padding: 20px;
+    }
+
+    header img {
+      max-width: 300px;
+      height: auto;
+    }
+
+    main {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .barcode-section {
+      margin-top: 40px;
+    }
+
+    .tec-link {
+      padding-top: 8px;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    .tec-link img {
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="e957d8b4-7021-4aaa-b92f-9156666f5167.jpg" alt="Night Star Express Logo">
+  </header>
+
+  <main>
+    <h1>Willkommen am Standort</h1>
+    <p>Scannen Sie den Barcode für weitere Informationen oder Services.</p>
+
+    <div class="barcode-section">
+      <img alt="Barcode Generator TEC-IT"
+           src="https://barcode.tec-it.com/barcode.ashx?data=112857_FHWMVQ_SD%0A&translate-esc=on" />
+    </div>
+
+    <div class="tec-link">
+      <a href="https://www.tec-it.com" title="Barcode Software by TEC-IT" target="_blank">
+        TEC-IT Barcode Generator<br/>
+        <img alt="TEC-IT Barcode Software" src="http://www.tec-it.com/pics/banner/web/TEC-IT_Logo_75x75.gif">
+      </a>
+    </div>
+  </main>
+</body>
+</html>
