@@ -31,25 +31,28 @@
 
     main {
       padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
     }
 
-    h1 {
-      margin-bottom: 10px;
-    }
-
-    input {
+    input, textarea {
       width: 80%;
       max-width: 400px;
       padding: 12px;
       font-size: 18px;
       border: 2px solid var(--ci-blue);
       border-radius: 8px;
-      margin-top: 20px;
       color: var(--ci-blue);
     }
 
+    textarea {
+      height: 100px;
+      resize: vertical;
+    }
+
     button {
-      margin-top: 30px;
       padding: 10px 20px;
       font-size: 16px;
       background-color: var(--ci-blue);
@@ -60,7 +63,7 @@
     }
 
     #barcode {
-      margin-top: 40px;
+      margin-top: 20px;
       background-color: white;
       padding: 10px;
       border: 1px solid #ccc;
@@ -70,15 +73,17 @@
       body * {
         visibility: hidden;
       }
-      #barcode, #barcode * {
+
+      #printSection, #printSection * {
         visibility: visible;
       }
-      #barcode {
+
+      #printSection {
         position: absolute;
         top: 0;
         left: 0;
-        margin: 0 auto;
         width: 100%;
+        padding: 20px;
         text-align: center;
       }
     }
@@ -87,16 +92,19 @@
 <body>
 
   <header>
-    <img src="logo-nse.svg" alt="Night Star Express Logo">
+    <img src="e957d8b4-7021-4aaa-b92f-9156666f5167.jpg" alt="Night Star Express Logo">
   </header>
 
   <main>
     <h1>Barcode Generator</h1>
-    <p>Gib einen Text ein – der Barcode wird automatisch angezeigt:</p>
+    <p>Gib deinen Barcode-Text ein:</p>
 
     <input type="text" id="barcodeInput" placeholder="z.B. hfdpofäpo+ßo12" oninput="generateBarcode()" />
 
-    <svg id="barcode"></svg>
+    <div id="printSection">
+      <svg id="barcode"></svg>
+      <textarea id="manualNote" placeholder="Zusätzlicher Text / Beschreibung"></textarea>
+    </div>
 
     <button onclick="window.print()">Drucken</button>
   </main>
