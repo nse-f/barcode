@@ -47,10 +47,12 @@
       color: var(--ci-blue);
     }
 
-    textarea {
-      height: 100px;
-      resize: vertical;
-    }
+ textarea {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  height: 100px;
+  resize: vertical;
+}
 
     button {
       padding: 10px 20px;
@@ -107,7 +109,7 @@
     <h1>Barcode Generator Night Star Express Frankfurt</h1>
     <p>Barcode-Text:</p>
 
-    <input type="text" id="barcodeInput" placeholder="z.B. hfdpofäpo+ßo12" oninput="generateBarcode()" />
+    <input type="text" id="barcodeInput" placeholder="code" oninput="generateBarcode()" />
 
     <div id="printSection">
       <svg id="barcode"></svg>
@@ -116,7 +118,7 @@
 
     <div class="button-group">
       <button onclick="window.print()">Drucken</button>
-      <button onclick="copyBarcodeText()">Kopieren</button>
+      <button onclick="copyBarcodeImage()">Barcode kopieren</button>
     </div>
   </main>
 
@@ -145,12 +147,37 @@
       }
     }
 
-    function copyBarcodeText() {
-      const input = document.getElementById("barcodeInput");
-      input.select();
-      input.setSelectionRange(0, 99999); // Für mobile Geräte
-      document.execCommand("copy");
-      alert("Barcode-Text kopiert: " + input.value);
+    async function copyBarcodeImage() {
+      const svg = document.getElementById("barcode");
+      const serializer = new XMLSerializer();
+      const svgString = serializer.serializeToString(svg);
+
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      const img = new Image();
+      const svgBlob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+      const url = URL.createObjectURL(svgBlob);
+
+      img.onload = async function () {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        URL.revokeObjectURL(url);
+
+        canvas.toBlob(async function (blob) {
+          try {
+            await navigator.clipboard.write([
+              new ClipboardItem({ "image/png": blob })
+            ]);
+            alert("Barcode erfolgreich kopiert!");
+          } catch (err) {
+            alert("Fehler beim Kopieren: " + err);
+          }
+        }, "image/png");
+      };
+
+      img.src = url;
     }
   </script>
 
