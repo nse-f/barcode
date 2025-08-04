@@ -60,6 +60,7 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
+      margin-top: 10px;
     }
 
     #barcode {
@@ -69,98 +70,11 @@
       border: 1px solid #ccc;
     }
 
-    @media print {
-      body * {
-        visibility: hidden;
-      }
-
-      #printSection, #printSection * {
-        visibility: visible;
-      }
-
-      #printSection {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        padding: 20px;
-        text-align: center;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <header>
-    <img src="<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Barcode Generator – Night Star Express</title>
-  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
-  <style>
-    :root {
-      --ci-blue: #003366;
-      --ci-light: #e9f1f9;
-    }
-
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: var(--ci-light);
-      color: var(--ci-blue);
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
-
-    header {
-      background-color: var(--ci-blue);
-      padding: 20px;
-    }
-
-    header img {
-      max-height: 80px;
-    }
-
-    main {
-      padding: 40px 20px;
+    .button-group {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
-
-    input, textarea {
-      width: 80%;
-      max-width: 400px;
-      padding: 12px;
-      font-size: 18px;
-      border: 2px solid var(--ci-blue);
-      border-radius: 8px;
-      color: var(--ci-blue);
-    }
-
-    textarea {
-      height: 100px;
-      resize: vertical;
-    }
-
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: var(--ci-blue);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    #barcode {
-      margin-top: 20px;
-      background-color: white;
-      padding: 10px;
-      border: 1px solid #ccc;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     @media print {
@@ -186,51 +100,7 @@
 <body>
 
   <header>
-    <img src="https://github.com/nse-f/barcode/blob/main/logo-nse.svg" alt="Night Star Express Logo">
-  </header>
-
-  <main>
-    <h1>Barcode Generator Night Star Express Frankfurt</h1>
-    <p>Gib deinen Barcode-Text ein:</p>
-
-    <input type="text" id="barcodeInput" placeholder="text" oninput="generateBarcode()" />
-
-    <div id="printSection">
-      <svg id="barcode"></svg>
-      <textarea id="manualNote" placeholder="Zusätzlicher Text / Beschreibung"></textarea>
-    </div>
-
-    <button onclick="window.print()">Drucken</button>
-  </main>
-
-  <script>
-    function generateBarcode() {
-      const input = document.getElementById("barcodeInput").value;
-      const svg = document.getElementById("barcode");
-
-      if (input.trim() === "") {
-        svg.innerHTML = "";
-        return;
-      }
-
-      try {
-        JsBarcode("#barcode", input, {
-          format: "CODE128",
-          displayValue: true,
-          fontSize: 18,
-          lineColor: "#000",
-          width: 2,
-          height: 100,
-          margin: 10
-        });
-      } catch (e) {
-        svg.innerHTML = "";
-      }
-    }
-  </script>
-
-</body>
-</html>" alt="Night Star Express Logo">
+    <img src="https://raw.githubusercontent.com/nse-f/barcode/main/logo-nse.svg" alt="Night Star Express Logo">
   </header>
 
   <main>
@@ -244,7 +114,10 @@
       <textarea id="manualNote" placeholder="Zusätzlicher Text / Beschreibung"></textarea>
     </div>
 
-    <button onclick="window.print()">Drucken</button>
+    <div class="button-group">
+      <button onclick="window.print()">Drucken</button>
+      <button onclick="copyBarcodeText()">Kopieren</button>
+    </div>
   </main>
 
   <script>
@@ -270,6 +143,14 @@
       } catch (e) {
         svg.innerHTML = "";
       }
+    }
+
+    function copyBarcodeText() {
+      const input = document.getElementById("barcodeInput");
+      input.select();
+      input.setSelectionRange(0, 99999); // Für mobile Geräte
+      document.execCommand("copy");
+      alert("Barcode-Text kopiert: " + input.value);
     }
   </script>
 
